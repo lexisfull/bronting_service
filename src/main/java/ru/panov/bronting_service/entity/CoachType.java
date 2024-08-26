@@ -1,4 +1,4 @@
-package ru.panov.bronting_service.Entity;
+package ru.panov.bronting_service.entity;
 
 public enum CoachType {
 }

@@ -1,11 +1,10 @@
-package dto;
+package ru.panov.bronting_service.dto;
 
-import Entity.CoachType;
-import Entity.Person;
+import ru.panov.bronting_service.entity.CoachType;
+import ru.panov.bronting_service.entity.Person;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
