@@ -1,4 +1,4 @@
-package ru.panov.bronting_service.Entity;
+package ru.panov.bronting_service.entity;
 
 
 
@@ -34,10 +34,10 @@ public class Executor {
     private String name;
 
     @Column(name = "age")
-    private Integer age;
+    private Long age;
 
     @Column(name = "experience")
-    private Integer experience;
+    private Long experience;
 
     @Column(name = "coachType")
     private CoachType coachType;

@@ -1,4 +1,4 @@
-package dto;
+package ru.panov.bronting_service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

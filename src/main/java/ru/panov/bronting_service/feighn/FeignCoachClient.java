@@ -1,6 +1,6 @@
-package feighn;
+package ru.panov.bronting_service.feighn;
 
-import dto.ExecutorDTO;
+import ru.panov.bronting_service.dto.ExecutorDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
