@@ -1,0 +1,73 @@
+server:
+  port: 0
+client:
+  url: http//localhost:8080/executor
+
+kafka:
+  topics:
+    test_topic: topic1
+
+spring:
+  application:
+    name: booking
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/pet_realm
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/pet_realm
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: pet-client
+            client-secret: DpTEE9884Ql0AiJoE9ZnqeUOB4St6K7U
+            scope: openid
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5436/bronting_db
+    username: postgres
+    password: postgres
+
+    driver-class-name: org.postgresql.Driver
+
+#spring.jpa.hibernate.ddl-auto=update
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        hbm2ddl:
+          auto: update
+
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+    hikari:
+      allow-pool-suspension: true
+
+# Specify explicitly the dialect (here for PostgreSQL, adapt for yourdatabase)
+
+# Disable Hibernate usage of JDBC metadata
+      hibernate:
+        boot:
+          allow_jdbc_metadata_access: false
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: never

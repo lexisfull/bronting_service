@@ -1,7 +1,5 @@
 package ru.panov.bronting_service.entity;
 
-
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -31,5 +29,5 @@ public class Booking {
     private Long id;
     private Long personId;
     private Long executorId;
-    private ZonedDateTime dateTime;
+    private LocalDateTime dateTime;
 }

@@ -1,6 +1,6 @@
 package ru.panov.bronting_service.feighn;
 
-import ru.panov.bronting_service.dto.ExecutorDTO;
+import ru.panov.bronting_service.dto.ExecutorDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,5 +11,5 @@ import java.util.List;
 public interface FeignCoachClient {
 
     @GetMapping
-    ResponseEntity<List<ExecutorDTO>> getAllExecutors();
+    ResponseEntity<List<ExecutorDto>> getAllExecutors();
 }

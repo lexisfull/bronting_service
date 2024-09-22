@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ExecutorDTO {
+public class ExecutorDto {
 
     Long id;
 
@@ -27,9 +27,9 @@ public class ExecutorDTO {
 
     String name;
 
-    Integer age;
+    Long age;
 
-    Integer experience;
+    Long experience;
 
     CoachType type;
 
