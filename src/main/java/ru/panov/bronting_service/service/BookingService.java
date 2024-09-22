@@ -1,16 +1,18 @@
 package ru.panov.bronting_service.service;
 
 import lombok.RequiredArgsConstructor;
-import ru.panov.bronting_service.entity.Booking;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.panov.bronting_service.dto.BookingDto;
+import ru.panov.bronting_service.entity.Booking;
+import ru.panov.bronting_service.mpper.BookingMapper;
 import ru.panov.bronting_service.repository.BookingRepository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -18,32 +20,30 @@ import java.util.List;
 public class BookingService {
 
     private final BookingRepository bookingRepository;
+    private final BookingMapper bookingMapper;
 
     /**
-     * генерирует список свободных дат для записи
+     * генер``Zирует список свободных дат для записи
      * в случае списка занятых дат более 8, вернуть пустой список
      *
-     * @param executorId
-     * @return
+     * @param executorId id исполнителя
+     * @return список свободных для записи дат
      */
-    public  List<LocalDateTime>  getFreeReservation(Long executorId){
+    public List<LocalDateTime> getFreeReservation(Long executorId){
 
-        ZonedDateTime time = ZonedDateTime.now().truncatedTo(ChronoUnit.HOURS);
+        LocalDateTime time = LocalDateTime.now();
+        time = time.plusDays(1).truncatedTo(ChronoUnit.DAYS).plusHours(8).truncatedTo(ChronoUnit.HOURS);
         List<LocalDateTime> freeTime = new ArrayList<>();
         for (int i = 0; i < 140; i++) {
             time = time.plusHours(1);
-            if (time.getHour() < 8) {
-                time = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS);
-                time = time.plusHours(8);
-            }
             if (time.getHour() > 22) {
-                time = ZonedDateTime.now().truncatedTo(ChronoUnit.DAYS).plus(1, ChronoUnit.DAYS).truncatedTo(ChronoUnit.HOURS);
-                time = time.plusHours(8);
+                time = time.plusDays(1).truncatedTo(ChronoUnit.DAYS);
             }
-            freeTime.add(time.toLocalDateTime());
+            freeTime.add(time);
         }
+
         List<LocalDateTime> freeReservation = bookingRepository.findAllByExecutorId(executorId)
-                .stream().map(Booking::getDateTime).map(ZonedDateTime::toLocalDateTime).toList();
+                .stream().map(Booking::getDateTime).collect(Collectors.toList());
         if (!freeReservation.isEmpty()) {
             freeTime.removeAll(freeReservation);
             return freeTime;
@@ -51,7 +51,8 @@ public class BookingService {
         return freeTime;
     }
 
-    public Booking createBooking(Booking booking) {
-        return bookingRepository.save(booking);
+    public ResponseEntity<?> createBooking(BookingDto booking) {
+        bookingRepository.save(bookingMapper.toBooking(booking));
+        return ResponseEntity.ok().build();
     }
 }
